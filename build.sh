@@ -11,14 +11,33 @@ do
     shift
 done
 
+[[ -z "${APP_ENV}" ]] && app_env='local' || app_env="${APP_ENV}"
+[[ "$verbose" = true ]] && build_repo_command_args="${build_repo_command_args} --progress=plain" || build_repo_command_args=""
+
 echo "Building ..."
+
+initiable_dockerfiles=(
+  'laravel-base'
+)
+
+echo "Make Basic Docker Images ..."
+
+cd "dockerfiles"
+for dockerfile in ${initiable_dockerfiles[@]}; do
+  if [ -e "${dockerfile}.Dockerfile" ]; then
+    echo "making ${dockerfile} ..."
+    make build-${dockerfile}-latest args="${build_repo_command_args}"
+  else
+    echo "Not such file ${PWD}/${dockerfile}"
+  fi
+done
+cd ".."
 
 makable_repos=(
   'service_link_shortner'
 )
 
-[[ -z "${APP_ENV}" ]] && app_env='local' || app_env="${APP_ENV}"
-[[ "$verbose" = true ]] && build_repo_command_args="${build_repo_command_args} --progress=plain" || build_repo_command_args=""
+echo "Make Repos ..."
 
 for repo in ${makable_repos[@]}; do
   git clone https://github.com/vahidForughi/${repo}
@@ -27,6 +46,7 @@ for repo in ${makable_repos[@]}; do
     chmod +x "entrypoint.sh"
     chmod +x "healthcheck.sh"
     echo "making ${repo} ..."
+    make build-base args="${build_repo_command_args}"
     make build-${app_env} args="${build_repo_command_args}"
     cd ".."
   else

@@ -1,5 +1,13 @@
 services:
 
+  registry:
+    image: registry:2
+    restart: always
+    command: >
+      bash -c '
+        docker tag
+      '
+
   postgres:
     image: postgres:17.0-alpine3.20
     restart: always
