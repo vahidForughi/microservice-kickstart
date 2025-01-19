@@ -3,6 +3,7 @@ services:
   # Applications
 
   service_link_shortner:
+    image: microservice-kickstart/service_link_shortner_stage:latest
     volumes:
       - ./service_link_shortner:/app
     ports:
