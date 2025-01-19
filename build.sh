@@ -21,7 +21,7 @@ makable_repos=(
 [[ "$verbose" = true ]] && build_repo_command_args="${build_repo_command_args} --progress=plain" || build_repo_command_args=""
 
 for repo in ${makable_repos[@]}; do
-  git clone vahidForughi/${repo}
+  git clone https://github.com/vahidForughi/${repo}
   if [ -d "${repo}" ]; then
     cd "${repo}"
     chmod +x "entrypoint.sh"
