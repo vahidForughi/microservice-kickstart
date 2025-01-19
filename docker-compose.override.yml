@@ -1,0 +1,3 @@
+include:
+  - path:
+      - docker-compose.${APP_ENV}.yml

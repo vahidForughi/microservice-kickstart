@@ -1,0 +1,30 @@
+services:
+
+  # Applications
+
+  service_link_shortner:
+    image: microservice-kickstart/service_link_shortner:latest
+    volumes:
+      - ./service_link_shortner:/app
+    ports:
+      - 8000:8000
+
+
+  # Dependencies
+
+  redis:
+    ports:
+      - '${REDIS_PUBLIC_PORT}:6379'
+
+  postgres:
+    ports:
+      - '${POSTGRES_PUBLIC_HOST}:${POSTGRES_PUBLIC_PORT}:5432'
+
+  rabbitmq:
+    ports:
+      - '${RABBITMQ_PUBLIC_PORT}:5672'
+      - '${RABBITMQ_MANAGEMENT_PUBLIC_PORT}:15672'
+
+  elastic:
+    ports:
+      - '${ELK_ELASTIC_PORT}:9200'

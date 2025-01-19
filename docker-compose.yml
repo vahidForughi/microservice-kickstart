@@ -1,0 +1,4 @@
+include:
+  - path:
+      - docker-compose.tools.yml
+      - docker-compose.applications.yml
