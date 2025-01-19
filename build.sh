@@ -24,11 +24,13 @@ echo "Make Basic Docker Images ..."
 
 cd "dockerfiles"
 for dockerfile in ${initiable_dockerfiles[@]}; do
-  if [ -e "${dockerfile}.Dockerfile" ]; then
-    echo "making ${dockerfile} ..."
-    make build-${dockerfile}-latest args="${build_repo_command_args}"
-  else
-    echo "Not such file ${PWD}/${dockerfile}"
+  if [ -n "$(docker images -q microservice-kickstart/${dockerfile}:${DOCKER_IMAGE_LARAVEL_BASE_VERSION})" ]
+    if [ -e "${dockerfile}.Dockerfile" ]; then
+      echo "making ${dockerfile} ..."
+      make build-${dockerfile}-latest args="${build_repo_command_args}"
+    else
+      echo "Not such file ${PWD}/${dockerfile}"
+    fi
   fi
 done
 cd ".."
