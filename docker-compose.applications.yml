@@ -13,8 +13,8 @@ services:
       timeout: 3s
       retries: 3
     environment:
+      DOCKER_IMAGE_BASE_VERSION: '${LINK_SHORTNER_DOCKER_IMAGE_BASE_VERSION}'
       APP_TASK: 'api'
-      DOCKER_IMAGE_LARAVEL_BASE_VERSION: '${DOCKER_IMAGE_LARAVEL_BASE_VERSION}'
       APP_ENV: '${APP_ENV}'
       APP_NAME: '${LINK_SHORTNER_APP_NAME}'
       APP_URL: '${LINK_SHORTNER_API_URL}'

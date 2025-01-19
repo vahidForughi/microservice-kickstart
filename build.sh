@@ -16,23 +16,24 @@ done
 
 echo "Building ..."
 
-initiable_dockerfiles=(
-  'laravel-base'
+declare -A initiable_dockerfiles=(
+  ["laravel-base"]="1.0.0",
 )
 
 echo "Make Basic Docker Images ..."
 
 cd "dockerfiles"
-for dockerfile in ${initiable_dockerfiles[@]}; do
-  if [ -n "$(docker images -q microservice-kickstart/${dockerfile}:${DOCKER_IMAGE_LARAVEL_BASE_VERSION})" ]; then
+for dockerfile_name in ${initiable_dockerfiles[@]}; do
+  dockerfile_version="${initiable_dockerfiles[${dockerfile_name}]}"
+  if [ -n "$(docker images -q microservice-kickstart/${dockerfile_name}:${dockerfile_version})" ]; then
     if [ -e "${dockerfile}.Dockerfile" ]; then
       echo "making ${dockerfile} ..."
-      make build-${dockerfile}-latest args="${build_repo_command_args}"
+      make build-latest name="${dockerfile_name}" version="${dockerfile_version}" args="${build_repo_command_args}"
     else
-      echo "Not such file ${PWD}/${dockerfile}"
+      echo "Not such file ${PWD}/${dockerfile_name}"
     fi
   else
-    echo "Image exists: ${dockerfile}"
+    echo "Image exists: ${dockerfile_name}"
   fi
 done
 cd ".."
