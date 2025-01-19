@@ -50,7 +50,3 @@ RUN install-php-extensions \
 #    grpc
 
 COPY --from=composer:2.7.9 /usr/bin/composer /usr/bin/composer
-
-COPY composer.json composer.lock ./
-
-RUN composer install --no-autoloader
