@@ -51,7 +51,7 @@ for repo in ${makable_repos[@]}; do
     chmod +x "entrypoint.sh"
     chmod +x "healthcheck.sh"
     echo "making ${repo} ..."
-    make build-base args="${build_repo_command_args}"
+    make build-base args="${build_repo_command_args} --build-arg=DOCKER_IMAGE_LARAVEL_BASE_VERSION=${DOCKER_IMAGE_LARAVEL_BASE_VERSION}"
     make build-${app_env} args="${build_repo_command_args}"
     cd ".."
   else
