@@ -21,7 +21,7 @@ done
 [[ -z "${APP_ENV}" ]] && app_env='local' || app_env="${APP_ENV}"
 [[ "$verbose" = true ]] && build_repo_command_args="${build_repo_command_args} --progress=plain" || build_repo_command_args=""
 
-echo "Building ..."
+echo "Building ......"
 
 echo "Make Basic Docker Images ..."
 
