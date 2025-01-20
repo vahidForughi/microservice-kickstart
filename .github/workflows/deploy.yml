@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
+        with:
+          clean: false
 #      - name: Build Dependencies
 #        uses: |
 #          sudo chmod +x ./build
