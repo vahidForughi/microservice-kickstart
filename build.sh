@@ -2,6 +2,8 @@
 
 verbose=false
 
+source .env
+
 declare -A initiable_dockerfiles=(
   ["laravel-base"]="1.0.0",
 )
