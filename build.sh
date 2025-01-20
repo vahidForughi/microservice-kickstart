@@ -2,6 +2,13 @@
 
 verbose=false
 
+declare -A initiable_dockerfiles=(
+  ["laravel-base"]="1.0.0",
+)
+makable_repos=(
+  'service_link_shortner'
+)
+
 while [ "$#" -gt 0 ]
 do
     case "$1" in
@@ -15,10 +22,6 @@ done
 [[ "$verbose" = true ]] && build_repo_command_args="${build_repo_command_args} --progress=plain" || build_repo_command_args=""
 
 echo "Building ..."
-
-declare -A initiable_dockerfiles=(
-  ["laravel-base"]="1.0.0",
-)
 
 echo "Make Basic Docker Images ..."
 
@@ -38,10 +41,6 @@ for dockerfile_name in ${initiable_dockerfiles[@]}; do
 done
 cd ".."
 
-makable_repos=(
-  'service_link_shortner'
-)
-
 echo "Make Repos ..."
 
 for repo in ${makable_repos[@]}; do
@@ -51,7 +50,6 @@ for repo in ${makable_repos[@]}; do
     chmod +x "entrypoint.sh"
     chmod +x "healthcheck.sh"
     echo "making ${repo} ..."
-    make build-base args="${build_repo_command_args} --build-arg=DOCKER_IMAGE_LARAVEL_BASE_VERSION=${DOCKER_IMAGE_LARAVEL_BASE_VERSION}"
     make build-${app_env} args="${build_repo_command_args}"
     cd ".."
   else
