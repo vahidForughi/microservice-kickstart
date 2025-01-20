@@ -1,0 +1,20 @@
+name: Deploy
+run-name: Deploy to ${{ inputs.deploy_target }} by @${{ github.actor }} 🚀
+on:
+  push:
+      branches:
+        - main
+jobs:
+  Deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Pull repo
+        uses: |
+          git reset --hard
+          git pull
+#      - name: Build Dependencies
+#        uses: |
+#          sudo chmod +x ./build
+#          git pull
