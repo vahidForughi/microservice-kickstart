@@ -11,8 +11,13 @@ jobs:
       run:
         working-directory: /opt
     steps:
+      - run: |
+          echo "${{ github.workspace }}"
+          ls ${{ github.workspace }}
       - name: Check out repository code
         uses: actions/checkout@v4
+        with:
+          path: '/opt'
 #      - name: Build Dependencies
 #        uses: |
 #          sudo chmod +x ./build
