@@ -10,10 +10,6 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-      - name: Pull repo
-        run: |
-          git reset --hard
-          git pull
 #      - name: Build Dependencies
 #        uses: |
 #          sudo chmod +x ./build
